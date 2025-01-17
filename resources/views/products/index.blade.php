@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container mt-4">
-        <h1 class="mb-4 text-center">Список товаров</h1>
+        <h1 class="mb-4 text-center">@lang('products.products_list')</h1>
         <div class="row">
             @forelse($products as $product)
                 <div class="col-md-4 mb-4">
@@ -15,15 +15,15 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ $product->name }}</h5>
                             <p class="card-text text-truncate" style="max-height: 50px;">{{ $product->description }}</p>
-                            <p class="text-muted">Цена: ${{ number_format($product->price, 2) }}</p>
+                            <p class="text-muted">@lang('products.price'): ${{ number_format($product->price, 2) }}</p>
                         </div>
                         <div class="card-footer text-center">
-                            <button class="btn btn-primary btn-sm">Купить</button>
+                            <button class="btn btn-primary btn-sm">@lang('products.buy')</button>
                         </div>
                     </div>
                 </div>
             @empty
-                <p class="text-center">Нет доступных товаров.</p>
+                <p class="text-center">@lang('products.no_prod_available')</p>
             @endforelse
         </div>
     </div>

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 
@@ -11,7 +12,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::redirect('/home', '/', 301)->name('home');
+
+Route::get('local/{locale}', [LocaleController::class, 'setLocale'])->name('setLanguage');
 
 Route::get('/', [ProductController::class, 'index'])->name('products.index');
 
