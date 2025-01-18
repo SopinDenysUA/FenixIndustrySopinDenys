@@ -24,18 +24,18 @@
                     <tr>
                         <td>{{ $item->product->name }}</td>
                         <td>
-                            <form action="{{ route('cart.update') }}" method="POST">
+                            <form action="{{ route('cart.update', ['product_id' => $item->product_id]) }}" method="POST">
                                 @csrf
-                                <input type="hidden" name="product_id" value="{{ $item->product_id }}">
+                                @method('PATCH')
                                 <input type="number" name="quantity" value="{{ $item->quantity }}" min="1" class="form-control" style="width: 70px; display: inline-block;">
                                 <button type="submit" class="btn btn-sm btn-primary">@lang('cart.update')</button>
                             </form>
                         </td>
                         <td>${{ number_format($item->product->price * $item->quantity, 2) }}</td>
                         <td>
-                            <form action="{{ route('cart.destroy') }}" method="POST">
+                            <form action="{{ route('cart.destroy', ['product_id' => $item->product_id]) }}" method="POST">
                                 @csrf
-                                <input type="hidden" name="product_id" value="{{ $item->product_id }}">
+                                @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger">@lang('cart.remove')</button>
                             </form>
                         </td>

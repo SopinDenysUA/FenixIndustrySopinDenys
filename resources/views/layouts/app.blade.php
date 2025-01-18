@@ -59,7 +59,12 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('cart.index') }}"><i class="fa-solid fa-cart-shopping"></i></a>
+                    <a class="nav-link" href="{{ route('cart.index') }}">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        @if(isset($cartCount) && $cartCount > 0)
+                            <span class="badge bg-danger">{{ $cartCount }}</span>
+                        @endif
+                    </a>
                 </li>
             </ul>
         </div>
