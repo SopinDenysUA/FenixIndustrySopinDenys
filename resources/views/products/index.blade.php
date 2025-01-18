@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+    @if (session('success'))
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4 class="m-0">{{ session('success') }}</h4>
+        </div>
+    @endif
     <div class="container mt-4">
         <h1 class="mb-4 text-center">@lang('products.products_list')</h1>
         <div class="row">
@@ -18,7 +24,12 @@
                             <p class="text-muted">@lang('products.price'): ${{ number_format($product->price, 2) }}</p>
                         </div>
                         <div class="card-footer text-center">
-                            <button class="btn btn-primary btn-sm">@lang('products.buy')</button>
+                            <form action="{{ route('cart.add') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <input type="number" name="quantity" value="1" min="1" class="form-control" style="width: 70px; display: inline-block;">
+                                <button type="submit" class="btn btn-primary btn-sm">@lang('products.buy')</button>
+                            </form>
                         </div>
                     </div>
                 </div>

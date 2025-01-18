@@ -18,4 +18,7 @@ Route::get('local/{locale}', [LocaleController::class, 'setLocale'])->name('setL
 
 Route::get('/', [ProductController::class, 'index'])->name('products.index');
 
-Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::middleware('auth')->group(function () {
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+});
