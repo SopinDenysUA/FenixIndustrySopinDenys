@@ -11,4 +11,7 @@ return [
     'remove' => 'Remove',
     'cart_updated' => 'Cart updated successfully!',
     'cart_item_removed' => 'Item removed from cart!',
+    'error_required' => 'Value cannot be empty',
+    'error_integer' => 'Value must be a digit',
+    'error_error_min1' => 'Value must be greater than or equal to 1',
 ];

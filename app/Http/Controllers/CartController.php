@@ -35,9 +35,16 @@ class CartController extends Controller
      */
     public function add(Request $request): RedirectResponse
     {
-        $request->validate([
-            'quantity' => 'required|integer|min:1',
-        ]);
+        $request->validate(
+            [
+                'quantity' => 'required|integer|min:1',
+            ],
+            [
+                'quantity.required' => __('cart.error_required'),
+                'quantity.integer' => __('cart.error_integer'),
+                'quantity.min:1' => __('cart.error_min1'),
+            ]
+        );
 
         $product = $this->_productService->getProductById($request->product_id);
 
@@ -59,9 +66,16 @@ class CartController extends Controller
      */
     public function update(Request $request): RedirectResponse
     {
-        $request->validate([
-            'quantity' => 'required|integer|min:1',
-        ]);
+        $request->validate(
+            [
+                'quantity' => 'required|integer|min:1',
+            ],
+            [
+                'quantity.required' => __('cart.error_required'),
+                'quantity.integer' => __('cart.error_integer'),
+                'quantity.min:1' => __('cart.error_min1'),
+            ]
+        );
 
         $cart = $this->_cartService->cartItem($request->product_id);
 

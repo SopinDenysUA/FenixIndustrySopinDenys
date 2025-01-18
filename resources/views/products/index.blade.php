@@ -7,6 +7,15 @@
                 <p class="m-0"><strong>{{ session('success') }}</strong></p>
             </div>
         @endif
+        @if($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <h1 class="mb-4 text-center">@lang('products.products_list')</h1>
         <div class="row">
             @forelse($products as $product)
@@ -27,6 +36,9 @@
                                 @csrf
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                                 <input type="number" name="quantity" value="1" min="1" class="form-control" style="width: 70px; display: inline-block;">
+                                @error('quantity')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                                 <button type="submit" class="btn btn-primary btn-sm">@lang('products.buy')</button>
                             </form>
                         </div>
