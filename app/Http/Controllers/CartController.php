@@ -36,7 +36,6 @@ class CartController extends Controller
     public function add(Request $request): RedirectResponse
     {
         $request->validate([
-            'product_id' => 'required|exists:products,id',
             'quantity' => 'required|integer|min:1',
         ]);
 
@@ -58,10 +57,9 @@ class CartController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function edit(Request $request): RedirectResponse
+    public function update(Request $request): RedirectResponse
     {
         $request->validate([
-            'product_id' => 'required|exists:carts,product_id',
             'quantity' => 'required|integer|min:1',
         ]);
 
@@ -81,10 +79,6 @@ class CartController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
-        $request->validate([
-            'product_id' => 'required|exists:carts,product_id',
-        ]);
-
         $this->_cartService->deleteProductFromCart($request->product_id);
 
         return redirect()->route('cart.index')->with('success', __('cart.cart_item_removed'));

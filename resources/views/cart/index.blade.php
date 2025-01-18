@@ -24,7 +24,7 @@
                     <tr>
                         <td>{{ $item->product->name }}</td>
                         <td>
-                            <form action="{{ route('cart.edit') }}" method="POST">
+                            <form action="{{ route('cart.update') }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="product_id" value="{{ $item->product_id }}">
                                 <input type="number" name="quantity" value="{{ $item->quantity }}" min="1" class="form-control" style="width: 70px; display: inline-block;">
