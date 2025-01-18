@@ -24,7 +24,9 @@ class CartController extends Controller
      */
     public function index(): View
     {
-        return view('cart.index');
+        $cart = $this->_cartService->getCart();
+
+        return view('cart.index', compact('cart'));
     }
 
     /**
@@ -53,50 +55,38 @@ class CartController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function create()
+    public function edit(Request $request): RedirectResponse
     {
-        //
+        $request->validate([
+            'product_id' => 'required|exists:carts,product_id',
+            'quantity' => 'required|integer|min:1',
+        ]);
+
+        $cart = $this->_cartService->cartItem($request->product_id);
+
+        if ($cart) {
+            $cart->quantity = $request->quantity;
+            $cart->save();
+        }
+
+        return redirect()->route('cart.index')->with('success', __('cart.cart_updated'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function destroy(Request $request): RedirectResponse
     {
-        //
-    }
+        $request->validate([
+            'product_id' => 'required|exists:carts,product_id',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        $this->_cartService->deleteProductFromCart($request->product_id);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return redirect()->route('cart.index')->with('success', __('cart.cart_item_removed'));
     }
 }

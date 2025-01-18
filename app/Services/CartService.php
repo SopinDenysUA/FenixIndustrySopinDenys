@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Illuminate\Database\Eloquent\Collection;
 use App\Models\Cart;
 
 class CartService
@@ -21,11 +22,28 @@ class CartService
     }
 
     /**
+     * @return Collection
+     */
+    public function getCart(): Collection
+    {
+        return Cart::with('product')->where('user_id', auth()->id())->get();
+    }
+
+    /**
      * @param $productId
      * @return mixed
      */
     public function cartItem($productId): mixed
     {
         return Cart::where('product_id', $productId)->where('user_id', auth()->id())->first();
+    }
+
+    /**
+     * @param $productId
+     * @return mixed
+     */
+    public function deleteProductFromCart($productId): mixed
+    {
+        return Cart::where('product_id', $productId)->where('user_id', auth()->id())->delete();
     }
 }

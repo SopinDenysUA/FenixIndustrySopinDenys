@@ -21,4 +21,6 @@ Route::get('/', [ProductController::class, 'index'])->name('products.index');
 Route::middleware('auth')->group(function () {
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+    Route::post('/cart/edit', [CartController::class, 'edit'])->name('cart.edit');
+    Route::post('/cart/destroy', [CartController::class, 'destroy'])->name('cart.destroy');
 });

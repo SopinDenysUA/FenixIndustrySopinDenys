@@ -1,13 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-    @if (session('success'))
-        <div class="alert alert-success" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <h4 class="m-0">{{ session('success') }}</h4>
-        </div>
-    @endif
     <div class="container mt-4">
+        @if (session('success'))
+            <div class="alert alert-success">
+                <p class="m-0"><strong>{{ session('success') }}</strong></p>
+            </div>
+        @endif
         <h1 class="mb-4 text-center">@lang('products.products_list')</h1>
         <div class="row">
             @forelse($products as $product)
